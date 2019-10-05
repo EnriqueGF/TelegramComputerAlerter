@@ -10,11 +10,49 @@ using System.Windows.Forms;
 
 namespace TelegramComputerMonitoring
 {
-    public partial class Form1 : Form
+    public partial class mainForm : Form
     {
-        public Form1()
+        public mainForm()
         {
             InitializeComponent();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void loadCredentialsButton_Click(object sender, EventArgs e)
+        {
+            if (Credentials.BotKey == null|| Credentials.TelegramUserName == null) {
+                MessageBox.Show("No hay datos guardados.");
+            }
+
         }
     }
 }
