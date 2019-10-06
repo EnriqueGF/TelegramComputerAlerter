@@ -28,37 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.startupCheckbox = new System.Windows.Forms.CheckBox();
+            this.botKey = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.telegramUsername = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.loadCredentialsButton = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // checkBox1
+            // startupCheckbox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(14, 16);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(235, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Auto startup invisible with Windows (Default)";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.startupCheckbox.AutoSize = true;
+            this.startupCheckbox.Checked = true;
+            this.startupCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.startupCheckbox.Location = new System.Drawing.Point(14, 16);
+            this.startupCheckbox.Name = "startupCheckbox";
+            this.startupCheckbox.Size = new System.Drawing.Size(235, 17);
+            this.startupCheckbox.TabIndex = 0;
+            this.startupCheckbox.Text = "Auto startup invisible with Windows (Default)";
+            this.startupCheckbox.UseVisualStyleBackColor = true;
+            this.startupCheckbox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // textBox1
+            // botKey
             // 
-            this.textBox1.Location = new System.Drawing.Point(144, 54);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
+            this.botKey.Location = new System.Drawing.Point(144, 54);
+            this.botKey.Name = "botKey";
+            this.botKey.Size = new System.Drawing.Size(100, 20);
+            this.botKey.TabIndex = 1;
             // 
             // label1
             // 
@@ -71,12 +71,12 @@
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // textBox2
+            // telegramUsername
             // 
-            this.textBox2.Location = new System.Drawing.Point(144, 80);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
+            this.telegramUsername.Location = new System.Drawing.Point(144, 80);
+            this.telegramUsername.Name = "telegramUsername";
+            this.telegramUsername.Size = new System.Drawing.Size(100, 20);
+            this.telegramUsername.TabIndex = 3;
             // 
             // label2
             // 
@@ -127,31 +127,31 @@
             this.loadCredentialsButton.UseVisualStyleBackColor = true;
             this.loadCredentialsButton.Click += new System.EventHandler(this.loadCredentialsButton_Click);
             // 
-            // button4
+            // saveButton
             // 
-            this.button4.Location = new System.Drawing.Point(95, 146);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "Save Credentials";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.saveButton.Location = new System.Drawing.Point(95, 146);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(75, 23);
+            this.saveButton.TabIndex = 9;
+            this.saveButton.Text = "Save Credentials";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.button4_Click);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(300, 228);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.loadCredentialsButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.telegramUsername);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.botKey);
+            this.Controls.Add(this.startupCheckbox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "mainForm";
             this.Text = "TelegramComputerMonitoring";
@@ -163,16 +163,16 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckBox startupCheckbox;
+        private System.Windows.Forms.TextBox botKey;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox telegramUsername;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button loadCredentialsButton;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button saveButton;
     }
 }
 
