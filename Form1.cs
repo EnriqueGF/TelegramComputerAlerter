@@ -13,7 +13,8 @@ namespace TelegramComputerMonitoring
 {
     public partial class mainForm : Form
     {
-        private static RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+        private static RegistryKey runRegistry = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
 
         public mainForm()
         {
@@ -26,12 +27,12 @@ namespace TelegramComputerMonitoring
             {
                 if (startupCheckbox.Checked)
                 {
-                    registryKey.SetValue("TelegramComputerAlerter", Application.ExecutablePath);
+                    runRegistry.SetValue("TelegramComputerAlerter", Application.ExecutablePath + " /startup");
 
                 }
                 else
                 {
-                    registryKey.DeleteValue("TelegramComputerAlerter");
+                    runRegistry.DeleteValue("TelegramComputerAlerter");
                 }
             }
             catch (Exception registrykeyException) { }
@@ -39,6 +40,24 @@ namespace TelegramComputerMonitoring
 
         private void mainForm_Load(object sender, EventArgs e)
         {
+            foreach (String parameter in Environment.GetCommandLineArgs())
+            {
+                if (parameter.Equals("/startup")) {
+
+                    MessageBox.Show("Startup detectado");
+                }
+
+
+            };
+
+            if (runRegistry.GetValue("TelegramComputerAlerter") == null)
+            {
+                startupCheckbox.Checked = false;
+
+            } else
+            {
+                startupCheckbox.Checked = true;
+            }
 
         }
 
