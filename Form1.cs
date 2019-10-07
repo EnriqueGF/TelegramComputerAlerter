@@ -41,7 +41,7 @@ namespace TelegramComputerMonitoring
                     runRegistry.DeleteValue(AppRegistryKeyName);
                 }
             }
-            catch (Exception registrykeyException) { }
+            catch (Exception) { }
         }
 
         private void mainForm_Load(object sender, EventArgs e)
