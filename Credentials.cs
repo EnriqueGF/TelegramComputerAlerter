@@ -14,12 +14,12 @@ namespace TelegramComputerMonitoring
     {
         private static String directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TelegramComputerAlerter\";
         private String botKey;
-        private String telegramUserName;
+        private String telegramID;
 
         public Credentials(string botKey, string telegramUserName)
         {
             this.botKey = botKey;
-            this.telegramUserName = telegramUserName;
+            this.telegramID = telegramUserName;
         }
 
         public void serialize()
@@ -34,7 +34,7 @@ namespace TelegramComputerMonitoring
             formatter.Serialize(stream, this);
             stream.Close();
         }
-        public static Credentials desserialize()
+        public static Credentials unserialize()
         {
             if (!File.Exists(directoryPath + "acc.dat"))
             {
@@ -47,9 +47,7 @@ namespace TelegramComputerMonitoring
             stream.Close();
             return (loginInfo);
         }
-
-
         public string BotKey { get => botKey; set => botKey = value; }
-        public string TelegramUserName { get => telegramUserName; set => telegramUserName = value; }
+        public string TelegramID { get => telegramID; set => telegramID = value; }
     }
 }
