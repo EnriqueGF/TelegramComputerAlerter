@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Emgu.CV;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Telegram.Bot;
+using Telegram.Bot.Types.InputFiles;
 
 namespace TelegramComputerMonitoring
 {
@@ -18,7 +20,9 @@ namespace TelegramComputerMonitoring
     {
         private static RegistryKey runRegistry = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
         private static String AppRegistryKeyName = "TelegramComputerAlerter";
-        Credentials credentials;
+        public string TEST_MESSAGE = "TelegramComputerMonitoring test message.";
+        UserSettings credentials;
+        TelegramBotClient botClient;
 
 
         public mainForm()
@@ -56,22 +60,35 @@ namespace TelegramComputerMonitoring
             }
 
             loadCredentials();
-
+            
         }
         private void Form1_Shown(Object sender, EventArgs e)
         {
-            hideOnStartup();
+            // Event called when form is completly shown
+            if (isStartup()) {
+                sendInfoThroughTelegram();
+            }
+
+
+            hide();
         }
 
-        private void hideOnStartup()
+        private void hide()
+        {
+            if (isStartup()) { this.Hide(); }
+
+        }
+
+        private bool isStartup()
         {
             foreach (String parameter in Environment.GetCommandLineArgs())
             {
                 if (parameter.Equals("/startup"))
                 {
-                    this.Hide();
+                    return true;
                 }
             };
+            return false;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -91,7 +108,7 @@ namespace TelegramComputerMonitoring
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            credentials = new Credentials(botKey.Text, telegramUserID.Text);
+            credentials = new UserSettings(botKey.Text, telegramUserID.Text);
             credentials.serialize();
         }
 
@@ -102,28 +119,55 @@ namespace TelegramComputerMonitoring
 
         private void loadCredentials()
         {
-            credentials = Credentials.unserialize();
+            credentials = UserSettings.unserialize();
 
             if (credentials != null)
             {
                 botKey.Text = credentials.BotKey;
                 telegramUserID.Text = credentials.TelegramID;
+                botClient = new TelegramBotClient(credentials.BotKey);
             }
         }
 
         private void testBotButton_Click(object sender, EventArgs e)
         {
-            String url = "https://api.telegram.org/bot" + credentials.BotKey + "/sendMessage?chat_id=" + credentials.TelegramID + "&text=" + " TelegramComputerMonitoring test message.";
-            String htmlCode = String.Empty;
             bool errorOcurred = false;
-            try { 
-                using (WebClient client = new WebClient())
-                {
-                    htmlCode = client.DownloadString(url);
-                }
+            try {
+                botClient.SendTextMessageAsync(credentials.TelegramID, TEST_MESSAGE);
+
             } catch (Exception requestException) { MessageBox.Show("An error ocurred, please check your Bot API key:\n " + requestException); errorOcurred = true; }
 
             if (!errorOcurred) { MessageBox.Show("The message has been sent without any errors."); }
+        }
+
+        private void sendInfoThroughTelegram()
+        {
+
+            sendCameraPhoto();
+            sendTextMessage();
+
+        }
+
+        private void sendTextMessage()
+        {
+            botClient.SendTextMessageAsync(credentials.TelegramID, "New login!");
+        }
+
+        private async void sendCameraPhoto()
+        {
+            if (File.Exists(UserSettings.DirectoryPath + "lastImage.jpeg"))
+            {
+                File.Delete(UserSettings.DirectoryPath + "lastImage.jpeg");
+            }
+
+            VideoCapture capture = new VideoCapture();
+            Bitmap image = capture.QueryFrame().Bitmap;
+            image.Save(UserSettings.DirectoryPath + "lastImage.jpeg");
+            using (FileStream fs = System.IO.File.OpenRead(UserSettings.DirectoryPath + "lastImage.jpeg"))
+            {
+                InputOnlineFile inputOnlineFile = new InputOnlineFile(fs, "image.jpeg");
+                await botClient.SendPhotoAsync(credentials.TelegramID, inputOnlineFile);
+            }
         }
     }
 }

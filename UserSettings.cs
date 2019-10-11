@@ -6,17 +6,18 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TelegramComputerMonitoring
 {
     [Serializable]
-    class Credentials
+    class UserSettings
     {
         private static String directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TelegramComputerAlerter\";
         private String botKey;
         private String telegramID;
 
-        public Credentials(string botKey, string telegramUserName)
+        public UserSettings(string botKey, string telegramUserName)
         {
             this.botKey = botKey;
             this.telegramID = telegramUserName;
@@ -34,8 +35,9 @@ namespace TelegramComputerMonitoring
             formatter.Serialize(stream, this);
             stream.Close();
         }
-        public static Credentials unserialize()
+        public static UserSettings unserialize()
         {
+            try { 
             if (!File.Exists(directoryPath + "acc.dat"))
             {
                 return null;
@@ -43,11 +45,15 @@ namespace TelegramComputerMonitoring
 
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(directoryPath + "acc.dat", FileMode.Open, FileAccess.Read);
-            Credentials loginInfo = (Credentials)formatter.Deserialize(stream);
+            UserSettings loginInfo = (UserSettings)formatter.Deserialize(stream);
             stream.Close();
             return (loginInfo);
+            } catch (Exception ex) { MessageBox.Show("Error ocurred reading saved file"); }
+
+            return null;
         }
         public string BotKey { get => botKey; set => botKey = value; }
         public string TelegramID { get => telegramID; set => telegramID = value; }
+        public static string DirectoryPath { get => directoryPath; set => directoryPath = value; }
     }
 }
