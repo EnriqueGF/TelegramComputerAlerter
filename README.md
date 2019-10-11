@@ -16,7 +16,7 @@ Example URL: https://api.telegram.org/botXXXXXXXXXXXXXXXX/getUpdates
 
 You will see something like this: "message":{"message_id":X,"from":{"id":YOURID"} ... That's your Telegram ID.
 
-# Source code requeriments
+# Project requeriments
 
 Nugget Packages. 
 EMGU.CV.4.1.1.3497
