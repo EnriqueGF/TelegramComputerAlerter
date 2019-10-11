@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 using Telegram.Bot;
 using Telegram.Bot.Types.InputFiles;
@@ -66,10 +67,23 @@ namespace TelegramComputerMonitoring
             // Event called when form is completly shown
             if (isStartup()) {
                 sendInfoThroughTelegram();
+                createExitTimer();
             }
 
-
             hide();
+        }
+
+        private void createExitTimer()
+        {
+            System.Timers.Timer aTimer = new System.Timers.Timer();
+            aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            aTimer.Interval = 5000;
+            aTimer.Enabled = true;
+        }
+
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            Application.Exit();
         }
 
         private void hide()
@@ -153,8 +167,6 @@ namespace TelegramComputerMonitoring
             {
                 sendTextMessage();
             }
-
-            Application.Exit();
         }
 
         private void sendTextMessage()
