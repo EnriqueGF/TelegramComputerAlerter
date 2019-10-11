@@ -16,11 +16,15 @@ namespace TelegramComputerMonitoring
         private static String directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TelegramComputerAlerter\";
         private String botKey;
         private String telegramID;
+        private bool sendText;
+        private bool sendPhoto;
 
-        public UserSettings(string botKey, string telegramUserName)
+        public UserSettings(string botKey, string telegramUserName, bool sendText, bool sendPhoto)
         {
             this.botKey = botKey;
             this.telegramID = telegramUserName;
+            this.sendText = sendText;
+            this.sendPhoto = sendPhoto;
         }
 
         public void serialize()
@@ -55,5 +59,7 @@ namespace TelegramComputerMonitoring
         public string BotKey { get => botKey; set => botKey = value; }
         public string TelegramID { get => telegramID; set => telegramID = value; }
         public static string DirectoryPath { get => directoryPath; set => directoryPath = value; }
+        public bool SendText { get => sendText; set => sendText = value; }
+        public bool SendPhoto { get => sendPhoto; set => sendPhoto = value; }
     }
 }

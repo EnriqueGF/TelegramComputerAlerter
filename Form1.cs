@@ -24,7 +24,6 @@ namespace TelegramComputerMonitoring
         UserSettings credentials;
         TelegramBotClient botClient;
 
-
         public mainForm()
         {
             InitializeComponent();
@@ -108,8 +107,9 @@ namespace TelegramComputerMonitoring
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            credentials = new UserSettings(botKey.Text, telegramUserID.Text);
+            credentials = new UserSettings(botKey.Text, telegramUserID.Text, checkBox2.Checked, checkBox1.Checked);
             credentials.serialize();
+            MessageBox.Show("Saved.");
         }
 
         private void loadCredentialsButton_Click(object sender, EventArgs e)
@@ -123,6 +123,9 @@ namespace TelegramComputerMonitoring
 
             if (credentials != null)
             {
+                if (credentials.SendPhoto) { checkBox1.Checked = true; }
+                if (credentials.SendText) { checkBox2.Checked = true; }
+
                 botKey.Text = credentials.BotKey;
                 telegramUserID.Text = credentials.TelegramID;
                 botClient = new TelegramBotClient(credentials.BotKey);
@@ -142,10 +145,14 @@ namespace TelegramComputerMonitoring
 
         private void sendInfoThroughTelegram()
         {
+            if (credentials.SendPhoto) {
+                sendCameraPhoto();
+            }
 
-            sendCameraPhoto();
-            sendTextMessage();
-
+            if (credentials.SendText)
+            {
+                sendTextMessage();
+            }
         }
 
         private void sendTextMessage()
