@@ -153,6 +153,8 @@ namespace TelegramComputerMonitoring
             {
                 sendTextMessage();
             }
+
+            Application.Exit();
         }
 
         private void sendTextMessage()
