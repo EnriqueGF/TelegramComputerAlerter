@@ -10,6 +10,8 @@ You will need a Telegram bot, consult any @BotFather guide to get an API code.
 
 In order to enter your Telegram User ID you should talk to your bot and then visit this url with your api code:
 
-https://api.telegram.org/APIKEY/getUpdates
+https://api.telegram.org/botAPIKEY/getUpdates
+
+Example URL: https://api.telegram.org/botXXXXXXXXXXXXXXXX/getUpdates
 
 You will see something like this: "message":{"message_id":X,"from":{"id":YOURID"} ... That's your Telegram ID.
