@@ -1,4 +1,4 @@
-# TelegramComputerMonitoring
+# TelegramComputerAlerter
 An application to control your PC from new logins, sending info about all to your personal Telegram account, info like actual date, a webcam photo, etc...
 
 
